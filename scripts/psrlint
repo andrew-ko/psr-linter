@@ -1,0 +1,22 @@
+#!/usr/bin/env php
+
+<?php
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use PhpParser\ParserFactory;
+
+$parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
+
+echo "Write some PHP:\n";
+$code = trim(readline());
+
+try {
+    $stmts = $parser->parse($code);
+    // $stmts is an array of statement nodes
+} catch (Error $e) {
+    echo 'Parse Error: ', $e->getMessage();
+}
+
+echo "\nYour statement nodes:\n";
+print_r($stmts);

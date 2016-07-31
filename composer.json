@@ -1,0 +1,39 @@
+{
+  "name": "andrew-ko/hexlet-psr-linter",
+  "description": "Pattern checker for PHP.",
+  "type": "library",
+  "keywords": [
+    "PSR",
+    "linter",
+    "standards"
+  ],
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Andrew Kovalenko",
+      "email": "andrew.kovalenko16@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {"Psrlint\\": "Psrlint/"}
+  },
+  "require": {
+    "nikic/php-parser": "^2.1"
+  },
+  "require-dev": {
+    "psy/psysh": "@stable",
+    "phpunit/phpunit": "^5.4.8",
+    "squizlabs/php_codesniffer": "^2.6.2"
+  },
+  "bin": [
+    "scripts/psrlint"
+  ],
+  "scripts": {
+    "test": [
+      "@phpunit",
+      "@phpcs"
+    ],
+    "phpunit": "php vendor/bin/phpunit",
+    "phpcs": "php vendor/bin/phpcs"
+  }
+}
