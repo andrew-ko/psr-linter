@@ -13,6 +13,6 @@
   <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
   <!-- Paths to check -->
-  <file>src</file>
+  <file>Psrlint</file>
   <file>tests</file>
 </ruleset>
