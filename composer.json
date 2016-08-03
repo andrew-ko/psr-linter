@@ -14,6 +14,7 @@
     "psr-4": {"Psrlint\\": "Psrlint/"}
   },
   "require": {
+    "php": "^7.0",
     "nikic/php-parser": "^2.1"
   },
   "require-dev": {

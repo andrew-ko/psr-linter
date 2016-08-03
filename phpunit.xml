@@ -3,6 +3,7 @@
 <phpunit
   bootstrap="vendor/autoload.php"
   colors="true"
+  processIsolation="false"
 >
   <testsuites>
     <testsuite name="Psrlint Test Suite">
