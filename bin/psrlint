@@ -1,22 +1,8 @@
 #!/usr/bin/env php
-
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use PhpParser\ParserFactory;
+$config = require __DIR__ . '/../Psrlint/config/main.php';
 
-$parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
-
-echo "Write some PHP:\n";
-$code = trim(readline());
-
-try {
-    $stmts = $parser->parse($code);
-    // $stmts is an array of statement nodes
-} catch (Error $e) {
-    echo 'Parse Error: ', $e->getMessage();
-}
-
-echo "\nYour statement nodes:\n";
-print_r($stmts);
+(new Psrlint\CLIProcess($config, $argv))->execute();
