@@ -11,11 +11,20 @@
     }
   ],
   "autoload": {
-    "psr-4": {"Psrlint\\": "Psrlint/"}
+    "psr-4": {"Psrlint\\": "Psrlint/"},
+    "files": [
+      "Psrlint/Util/color.php",
+      "Psrlint/Util/createAst.php",
+      "Psrlint/Config/default.php",
+      "Psrlint/Formatters/default.php",
+      "Psrlint/Linter.php"
+    ]
   },
   "require": {
     "php": "^7.0",
-    "nikic/php-parser": "^2.1"
+    "nikic/php-parser": "^2.1",
+    "docopt/docopt": "*",
+    "kevinlebrun/colors.php": "*"
   },
   "require-dev": {
     "psy/psysh": "@stable",

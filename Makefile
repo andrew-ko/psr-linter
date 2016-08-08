@@ -6,6 +6,3 @@ phpunit:
 
 lint:
 	composer phpcs
-
-install:
-	comport install
