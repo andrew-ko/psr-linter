@@ -3,6 +3,35 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-$config = require __DIR__ . '/../Psrlint/config/main.php';
+use function Psrlint\Util\color;
+use function Psrlint\Config\defaultOptions;
 
-(new Psrlint\CLIProcess($config, $argv))->execute();
+$title = color(PHP_EOL . "Psrlint. An AST-based pattern checker for PHP.")->magenta->bold->italic;
+
+$doc = $title . PHP_EOL;
+
+$doc .= <<<'DOCOPT'
+
+Usage:
+  psrlint [options] PATH [PATH ...]
+  psrlint [options] --stdin
+
+Options:
+  -o, --output OUTPUT      Specify file to write report to
+  -f, --fix                Automatically fix problems
+  -s, --stdin              Lint code provided on STDIN
+  -v --version             Show version and exit
+  -h --help                Show this help message and exit
+
+DOCOPT;
+
+$docopt = \Docopt::handle($doc, ['version' => defaultOptions('version')]);
+
+$args = $docopt->args;
+
+$text = $args['--stdin']
+    ? file_get_contents('php://stdin', 'r')
+    : null;
+
+$result = (new Psrlint\CLI)->execute($args, $text);
+exit($result);
