@@ -18,8 +18,15 @@ class FunctionsNaming
 
     private function checkName($node)
     {
+        $name = $node->name;
+
+        // ignore magic methods
+        if (in_array($name, $this->ignore)) {
+            return;
+        }
+
         foreach ($this->rules as $rule) {
-            if (preg_match($rule['pattern'], $node->name)) {
+            if (preg_match($rule['pattern'], $name)) {
                 return [
                     'type' => $rule['type'],
                     'line' => $node->getAttribute('startLine'),
@@ -41,5 +48,23 @@ class FunctionsNaming
             'message' => 'Method names MUST be declared in camelCase().',
             'type' => 'error'
         ]
+    ];
+
+    private $ignore = [
+        '__construct',
+        '__destruct',
+        '__call',
+        '__callstatic',
+        '__get',
+        '__set',
+        '__isset',
+        '__unset',
+        '__sleep',
+        '__wakeup',
+        '__tostring',
+        '__set_state',
+        '__clone',
+        '__invoke',
+        '__debuginfo',
     ];
 }

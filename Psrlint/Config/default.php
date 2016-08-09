@@ -6,6 +6,8 @@ function defaultRules()
 {
     return [
         'FunctionsNaming',
+        'VarNaming',
+        'SideEffects'
     ];
 }
 
