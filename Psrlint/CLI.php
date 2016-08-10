@@ -21,7 +21,7 @@ class CLI
     {
         try {
             $options = $this->initOptions($args);
-            $files = resolvePaths($args['PATH']);
+            $files = resolvePaths($args['PATH'], $options);
 
             $engine = new Engine($options);
 

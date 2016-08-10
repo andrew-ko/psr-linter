@@ -16,6 +16,7 @@ function defaultOptions($key = null)
     $opt = [
         '--fix' => false,
         '--output' => null,
+        '--ignore' => null,
         '--stdin' => false,
         '--stdin-filename' => false,
         '--color' => true,

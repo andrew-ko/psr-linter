@@ -39,9 +39,11 @@
   "scripts": {
     "test": [
       "@phpunit",
-      "@phpcs"
+      "@phpcs",
+      "@psr"
     ],
     "phpunit": "php vendor/bin/phpunit",
-    "phpcs": "php vendor/bin/phpcs"
+    "phpcs": "php vendor/bin/phpcs",
+    "psr": "bin/psrlint Psrlint tests --ignore tests/fixtures"
   }
 }

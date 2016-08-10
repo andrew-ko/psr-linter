@@ -14,12 +14,14 @@ $doc .= <<<'DOCOPT'
 
 Usage:
   psrlint [options] PATH [PATH ...]
+  psrlint [options] PATH [PATH ...] --ignore PATH [--ignore PATH...]
   psrlint [options] --stdin
 
 Options:
-  -o, --output OUTPUT      Specify file to write report to
-  -f, --fix                Automatically fix problems
-  -s, --stdin              Lint code provided on STDIN
+  -o --output OUTPUT       Specify file to write report to
+  -i --ignore PATH         Specify path to ignore
+  -f --fix                 Automatically fix problems
+  -s --stdin               Lint code provided on STDIN
   -v --version             Show version and exit
   -h --help                Show this help message and exit
 
