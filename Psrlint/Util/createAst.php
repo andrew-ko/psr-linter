@@ -7,8 +7,7 @@ use PhpParser\Lexer;
 
 function createAst($text)
 {
-    $lexer = initLexer();
-    $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7, $lexer);
+    $parser = (new ParserFactory)->create(ParserFactory::PREFER_PHP7);
 
     try {
         return $parser->parse($text);
@@ -17,17 +16,17 @@ function createAst($text)
     }
 }
 
-function initLexer()
-{
-    return new Lexer\Emulative([
-        'usedAttributes' => [
-            'comments',
-            'startLine',
-            'endLine',
-            'startTokenPos',
-            'endTokenPos',
-            'startFilePos',
-            'endFilePos'
-        ]
-    ]);
-}
+# function initLexer()
+# {
+#     return new Lexer\Emulative([
+#         'usedAttributes' => [
+#             'comments',
+#             'startLine',
+#             'endLine',
+#             'startTokenPos',
+#             'endTokenPos',
+#             'startFilePos',
+#             'endFilePos'
+#         ]
+#     ]);
+# }

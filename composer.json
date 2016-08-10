@@ -15,6 +15,7 @@
     "files": [
       "Psrlint/Util/color.php",
       "Psrlint/Util/createAst.php",
+      "Psrlint/Util/resolvePaths.php",
       "Psrlint/Config/default.php",
       "Psrlint/Formatters/default.php",
       "Psrlint/Linter.php"

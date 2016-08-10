@@ -5,6 +5,7 @@ namespace Psrlint;
 use Psrlint\Engine;
 use Psrlint\Error;
 use function Psrlint\Util\color;
+use function Psrlint\Util\resolvePaths;
 use function Psrlint\Config\defaultOptions;
 use function Psrlint\Formatters\defaultFormat;
 
@@ -20,7 +21,7 @@ class CLI
     {
         try {
             $options = $this->initOptions($args);
-            $files = $this->resolvePaths($args['PATH']);
+            $files = resolvePaths($args['PATH']);
 
             $engine = new Engine($options);
 
@@ -49,25 +50,6 @@ class CLI
         }
 
         return $options;
-    }
-
-    protected function resolvePaths($paths)
-    {
-        $files = [];
-
-        foreach ($paths as $path) {
-            if (is_dir($path)) {
-                $files = array_map(function ($file) {
-                    return realpath($file);
-                }, glob("{$path}/*.*"));
-            } elseif (is_file($path)) {
-                $files[] = realpath($path);
-            } else {
-                throw new Error("No such file or directory: " . getcwd() . "/$path");
-            }
-        }
-
-        return $files;
     }
 
     protected function printReport($report)

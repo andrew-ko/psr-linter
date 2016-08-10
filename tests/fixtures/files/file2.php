@@ -14,11 +14,3 @@ function __invoke()
 {
     return true;
 }
-
-# if (true) {
-#     $snake_case = 12;
-#     $CAPS = 'string';
-#     $CamelCaps = 'asdf';
-# }
-
-const AAEAE = 12;
