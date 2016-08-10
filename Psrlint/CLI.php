@@ -6,8 +6,8 @@ use Psrlint\Engine;
 use Psrlint\Error;
 use function Psrlint\Util\color;
 use function Psrlint\Util\resolvePaths;
+use function Psrlint\Util\formatter;
 use function Psrlint\Config\defaultOptions;
-use function Psrlint\Formatters\defaultFormat;
 
 class CLI
 {
@@ -21,7 +21,7 @@ class CLI
     {
         try {
             $options = $this->initOptions($args);
-            $files = resolvePaths($args['PATH']);
+            $files = resolvePaths($args['PATH'], $options);
 
             $engine = new Engine($options);
 
@@ -29,7 +29,10 @@ class CLI
                 ? $engine->executeOnText($text)
                 : $engine->executeOnFiles($files);
 
-            $this->printReport($report);
+            if ($options['--fix']) {
+                $this->outputFixes($report, $options);
+            }
+            $this->printReport($report, $options);
 
             return self::EXIT_CODE_NORMAL;
         } catch (Error $e) {
@@ -40,20 +43,32 @@ class CLI
 
     protected function initOptions($cmdOptions)
     {
-        $options = array_merge(
+        return array_merge(
             defaultOptions(),
             $cmdOptions
         );
-
-        if ($options['--stdin'] && $options['--fix']) {
-            throw new Error("The --fix option is not available for piped-in code.");
-        }
-
-        return $options;
     }
 
-    protected function printReport($report)
+    protected function outputFixes($report, $options)
     {
-        fwrite(STDOUT, defaultFormat($report) . PHP_EOL);
+        $results = array_filter($report['results'], function ($result) {
+            return isset($result['output']);
+        });
+
+        foreach ($results as $result) {
+            $options['--stdin']
+                ? fwrite(STDOUT, color("\nFixed result:\n")->green . $result['output'] . PHP_EOL)
+                : file_put_contents($result['filepath'], $result['output']);
+        }
+    }
+
+    protected function printReport($report, $options)
+    {
+        $outputFile = $options['--output'];
+        $output = formatter($report, $options['--format']);
+
+        $outputFile
+            ? file_put_contents($outputFile, $output)
+            : fwrite(STDOUT, $output . PHP_EOL);
     }
 }

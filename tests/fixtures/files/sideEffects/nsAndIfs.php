@@ -10,6 +10,8 @@ if (true) {
         return true;
     }
     if (true) {
-        foo();
+        if (true) {
+            foo();
+        }
     }
 }

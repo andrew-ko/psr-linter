@@ -14,7 +14,7 @@ function defaultFormat($report)
     $output = '';
     $output .= PHP_EOL;
     foreach ($report['results'] as $result) {
-        if (in_array(true, ($result['messages']))) {
+        if (!empty($result['messages'])) {
             $output .= color($result['filepath'])->magenta->underLine . PHP_EOL;
             foreach ($result['messages'] as $message) {
                 if ($message) {

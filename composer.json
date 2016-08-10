@@ -16,8 +16,11 @@
       "Psrlint/Util/color.php",
       "Psrlint/Util/createAst.php",
       "Psrlint/Util/resolvePaths.php",
+      "Psrlint/Util/formatter.php",
       "Psrlint/Config/default.php",
       "Psrlint/Formatters/default.php",
+      "Psrlint/Formatters/yaml.php",
+      "Psrlint/Formatters/json.php",
       "Psrlint/Linter.php"
     ]
   },
@@ -25,7 +28,8 @@
     "php": "^7.0",
     "nikic/php-parser": "^2.1",
     "docopt/docopt": "*",
-    "kevinlebrun/colors.php": "*"
+    "kevinlebrun/colors.php": "*",
+    "symfony/yaml": "*"
   },
   "require-dev": {
     "psy/psysh": "@stable",
@@ -39,9 +43,11 @@
   "scripts": {
     "test": [
       "@phpunit",
-      "@phpcs"
+      "@phpcs",
+      "@psr"
     ],
     "phpunit": "php vendor/bin/phpunit",
-    "phpcs": "php vendor/bin/phpcs"
+    "phpcs": "php vendor/bin/phpcs",
+    "psr": "bin/psrlint Psrlint tests --ignore tests/fixtures"
   }
 }

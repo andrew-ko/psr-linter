@@ -38,7 +38,7 @@ class FunctionsNamingTest extends TestCase
         $nodes[] = new Function_('camelCase');
 
         foreach ($nodes as $node) {
-            $results[] = $this->listeners[$node->getType()]([], ['node' => $node]);
+            $results[] = call_user_func($this->listeners[$node->getType()], ['node' => $node]);
         }
 
         $warnings = array_filter($results, function ($el) {
