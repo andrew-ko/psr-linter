@@ -21,6 +21,7 @@ function defaultOptions($key = null)
         '--stdin-filename' => false,
         '--color' => true,
         '--version' => 'v0.0.2',
+        '--format' => 'default',
         'PATH' => [],
     ];
 

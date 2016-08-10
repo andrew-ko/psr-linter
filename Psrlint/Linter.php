@@ -35,7 +35,10 @@ function createReducer(array $rules)
     return function ($state, $action) use ($rules) {
         return array_reduce($rules, function ($acc, $rule) use ($action) {
             if (array_key_exists($action['actionType'], $rule)) {
-                $acc[] = $rule[$action['actionType']]($acc, $action['payload']);
+                $message = $rule[$action['actionType']]($acc, $action['payload']);
+                if ($message) {
+                    $acc[] = $message;
+                }
             }
             return $acc;
         }, $state);

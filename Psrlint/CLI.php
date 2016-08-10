@@ -6,8 +6,8 @@ use Psrlint\Engine;
 use Psrlint\Error;
 use function Psrlint\Util\color;
 use function Psrlint\Util\resolvePaths;
+use function Psrlint\Util\formatter;
 use function Psrlint\Config\defaultOptions;
-use function Psrlint\Formatters\defaultFormat;
 
 class CLI
 {
@@ -29,7 +29,7 @@ class CLI
                 ? $engine->executeOnText($text)
                 : $engine->executeOnFiles($files);
 
-            $this->printReport($report);
+            $this->printReport($report, $options);
 
             return self::EXIT_CODE_NORMAL;
         } catch (Error $e) {
@@ -52,8 +52,13 @@ class CLI
         return $options;
     }
 
-    protected function printReport($report)
+    protected function printReport($report, $options)
     {
-        fwrite(STDOUT, defaultFormat($report) . PHP_EOL);
+        $outputFile = $options['--output'];
+        $output = formatter($report, $options['--format']);
+
+        $outputFile
+            ? file_put_contents($outputFile, $output)
+            : fwrite(STDOUT, $output . PHP_EOL);
     }
 }

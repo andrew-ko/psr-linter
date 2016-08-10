@@ -20,11 +20,12 @@ Usage:
 Options:
   -o --output OUTPUT       Specify file to write report to
   -i --ignore PATH         Specify path to ignore
-  -f --fix                 Automatically fix problems
+  -f --format FORMAT       Use a specific format [default: default]
   -s --stdin               Lint code provided on STDIN
-  -v --version             Show version and exit
-  -h --help                Show this help message and exit
+  --fix                    Automatically fix problems
 
+  -h --help                Show this help message and exit
+  -v --version             Show version and exit
 DOCOPT;
 
 $docopt = \Docopt::handle($doc, ['version' => defaultOptions('version')]);
