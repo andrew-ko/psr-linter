@@ -7,10 +7,10 @@ class VarNaming
     public function init()
     {
         return [
-            'Expr_Variable' => function ($state, $payload) {
+            'Expr_Variable' => function ($payload) {
                 return $this->checkName($payload['node']);
             },
-            'Stmt_PropertyProperty' => function ($state, $payload) {
+            'Stmt_PropertyProperty' => function ($payload) {
                 return $this->checkName($payload['node']);
             }
         ];
@@ -21,12 +21,34 @@ class VarNaming
         foreach ($this->rules as $rule) {
             if (preg_match($rule['pattern'], $node->name)) {
                 return [
-                    'type' => $rule['type'],
-                    'line' => $node->getAttribute('startLine'),
-                    'message' => $rule['message']
+                    'type'    => $rule['type'],
+                    'line'    => $node->getAttribute('startLine'),
+                    'message' => $rule['message'],
+
+                    'fix'     => function () use ($node) {
+                        return $node->name = $this->fixName($node->name);
+                    }
                 ];
             }
         }
+    }
+
+    private function fixName($name)
+    {
+        return preg_replace_callback_array(
+            [
+                '/^_/' => function ($match) {
+                    return '';
+                },
+                '/_[a-z|A-Z]/' => function ($match) {
+                    return strtoupper(substr($match[0], 1));
+                },
+                '/^[A-Z]+/' => function ($match) {
+                    return strtolower($match[0]);
+                },
+            ],
+            $name
+        );
     }
 
     private $rules = [

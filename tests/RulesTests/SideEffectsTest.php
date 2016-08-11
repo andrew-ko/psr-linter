@@ -43,8 +43,8 @@ class SideEffectsTest extends TestCase
         $trees[] = $parser->parse($file3);
 
         foreach ($trees as $ast) {
-            $results[] = $this->listeners['traverse.start']([], ['ast' => $ast]);
-            $results[] = $this->listeners['Stmt_Namespace']([], ['node' => $ast[0]]);
+            $results[] = call_user_func($this->listeners['traverse.start'], ['ast' => $ast]);
+            $results[] = call_user_func($this->listeners['Stmt_Namespace'], ['node' => $ast[0]]);
         }
 
         $warnings = array_filter($results, function ($el) {

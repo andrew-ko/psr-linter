@@ -29,6 +29,9 @@ class CLI
                 ? $engine->executeOnText($text)
                 : $engine->executeOnFiles($files);
 
+            if ($options['--fix']) {
+                $this->outputFixes($report, $options);
+            }
             $this->printReport($report, $options);
 
             return self::EXIT_CODE_NORMAL;
@@ -40,16 +43,23 @@ class CLI
 
     protected function initOptions($cmdOptions)
     {
-        $options = array_merge(
+        return array_merge(
             defaultOptions(),
             $cmdOptions
         );
+    }
 
-        if ($options['--stdin'] && $options['--fix']) {
-            throw new Error("The --fix option is not available for piped-in code.");
+    protected function outputFixes($report, $options)
+    {
+        $results = array_filter($report['results'], function ($result) {
+            return isset($result['output']);
+        });
+
+        foreach ($results as $result) {
+            $options['--stdin']
+                ? fwrite(STDOUT, color("\nFixed result:\n")->green . $result['output'] . PHP_EOL)
+                : file_put_contents($result['filepath'], $result['output']);
         }
-
-        return $options;
     }
 
     protected function printReport($report, $options)

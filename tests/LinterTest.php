@@ -10,7 +10,7 @@ class LinterTest extends TestCase
 {
     public function testInspect()
     {
-        $this->assertEquals([], inspect('string'));
+        $this->assertTrue((bool) inspect('string'));
     }
 
     public function testCreateReducer()

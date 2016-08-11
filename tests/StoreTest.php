@@ -14,6 +14,6 @@ class StoreTest extends TestCase
         $reducer = createReducer([]);
         $store = new Store($reducer);
         $store->dispatch('', []);
-        $this->assertEquals([], $store->getReport());
+        $this->assertEquals([], $store->getResult());
     }
 }

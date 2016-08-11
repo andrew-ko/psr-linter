@@ -7,10 +7,10 @@ class FunctionsNaming
     public function init()
     {
         return [
-            'Stmt_Function' => function ($state, $payload) {
+            'Stmt_Function' => function ($payload) {
                 return $this->checkName($payload['node']);
             },
-            'Stmt_ClassMethod' => function ($state, $payload) {
+            'Stmt_ClassMethod' => function ($payload) {
                 return $this->checkName($payload['node']);
             }
         ];

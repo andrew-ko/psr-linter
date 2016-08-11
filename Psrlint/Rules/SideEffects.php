@@ -9,12 +9,12 @@ class SideEffects
     public function init()
     {
         return [
-            'traverse.start' => function ($state, $payload) {
+            'traverse.start' => function ($payload) {
                 if ($this->hasConflicts($payload['ast'])) {
                     return $this->errorReport;
                 }
             },
-            'Stmt_Namespace' => function ($state, $payload) {
+            'Stmt_Namespace' => function ($payload) {
                 if ($this->hasConflicts($payload['node']->stmts)) {
                     return $this->errorReport;
                 }

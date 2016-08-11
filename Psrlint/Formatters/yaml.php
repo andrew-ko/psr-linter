@@ -6,5 +6,5 @@ use Symfony\Component\Yaml\Yaml;
 
 function yamlFormat($report)
 {
-    return Yaml::dump($report);
+    return Yaml::dump($report, 5);
 }
