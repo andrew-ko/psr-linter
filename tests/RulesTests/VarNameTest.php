@@ -3,16 +3,16 @@
 namespace Psrlint\Tests\RulesTests;
 
 use PHPUnit\Framework\TestCase;
-use Psrlint\Rules\FunctionsNaming;
-use PhpParser\Node\Stmt\ClassMethod;
-use PhpParser\Node\Stmt\Function_;
+use Psrlint\Rules\VarNaming;
+use PhpParser\Node\Expr\Variable;
+use PhpParser\Node\Stmt\PropertyProperty;
 
-class FunctionsNamingTest extends TestCase
+class VarNamingTest extends TestCase
 {
 
     protected function setUp()
     {
-        $this->rule = new FunctionsNaming();
+        $this->rule = new VarNaming();
         $this->listeners = $this->rule->init();
     }
 
@@ -21,21 +21,21 @@ class FunctionsNamingTest extends TestCase
         foreach ($this->listeners as $listener) {
             $this->assertTrue($listener instanceof \Closure);
         }
-        $this->assertArrayHasKey('Stmt_Function', $this->listeners);
-        $this->assertArrayHasKey('Stmt_ClassMethod', $this->listeners);
+        $this->assertArrayHasKey('Stmt_PropertyProperty', $this->listeners);
+        $this->assertArrayHasKey('Expr_Variable', $this->listeners);
     }
 
 
     public function testThatItWorks()
     {
-        $nodes[] = new ClassMethod('CamelCaps');
-        $nodes[] = new ClassMethod('_Underscore');
-        $nodes[] = new ClassMethod('snake_case');
-        $nodes[] = new ClassMethod('camelCase');
-        $nodes[] = new Function_('CamelCaps');
-        $nodes[] = new Function_('_Underscore');
-        $nodes[] = new Function_('snake_case');
-        $nodes[] = new Function_('camelCase');
+        $nodes[] = new Variable('CamelCaps');
+        $nodes[] = new Variable('_Underscore');
+        $nodes[] = new Variable('snake_case');
+        $nodes[] = new Variable('camelCase');
+        $nodes[] = new PropertyProperty('CamelCaps');
+        $nodes[] = new PropertyProperty('_Underscore');
+        $nodes[] = new PropertyProperty('snake_case');
+        $nodes[] = new PropertyProperty('camelCase');
 
         foreach ($nodes as $node) {
             $results[] = call_user_func($this->listeners[$node->getType()], ['node' => $node]);

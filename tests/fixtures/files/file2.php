@@ -9,3 +9,8 @@ function FunctionName()
 {
     return true;
 }
+
+function __invoke()
+{
+    return true;
+}
