@@ -51,7 +51,7 @@ class Engine
 
     protected function processText($text, $filename = '<text>')
     {
-        $messages = inspect($text);
+        list($messages, $fixedCode) = inspect($text, $this->options['--fix']);
 
         $stats = $this->calculateFileStats($messages);
 
@@ -61,6 +61,10 @@ class Engine
             'errorCount' => $stats['errorCount'],
             'warningCount' => $stats['warningCount'],
         ];
+
+        if ($fixedCode) {
+            $result['output'] = $fixedCode;
+        }
 
         return $result;
     }
