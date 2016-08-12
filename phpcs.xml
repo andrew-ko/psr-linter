@@ -15,4 +15,7 @@
   <!-- Paths to check -->
   <file>Psrlint</file>
   <file>tests</file>
+
+  <!-- Patterns to ignore-->
+  <exclude-pattern>*/fixtures/*</exclude-pattern>
 </ruleset>
