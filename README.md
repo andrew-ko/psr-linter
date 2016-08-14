@@ -5,12 +5,12 @@
 
 ### About
 
-Tool for linting PHP source code.
+An AST-based pattern checker for PHP
 
 ### Example of usage
 
-`psrlint file_or_directory`
+`psrlint [options] file_or_dir`
 
 ### Installation
 
-### Documentation
+`composer require andrew-ko/hexlet-psr-linter`
